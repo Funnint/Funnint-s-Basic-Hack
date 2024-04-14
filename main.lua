@@ -138,51 +138,47 @@ local script = G2L["2"];
 	end)
 	
 	CurrentRooms.ChildAdded:Connect(function(Room:Model)
-		CurrentRooms.ChildAdded:Connect(function()
-			local doorModel = Room:WaitForChild("Door")
-			local highlight = highlightModel(doorModel:WaitForChild("Door"), Color3.fromRGB(255,255,255), nil, false)
-			doorModel:GetAttributeChangedSignal("Opened"):Connect(function()
-				highlight:StopHighlight()
-			end)
-	
-			if Room.Name == "50" then
-				task.wait(2)
-			end
-	
-			for i, v:Model in pairs(Room:GetDescendants()) do
-				if v.Name == "KeyObtain" then
-					highlightModel(v, Color3.fromRGB(1,55,255))
-				elseif v.Name == "LiveHintBook" then
-					highlightModel(v, Color3.fromRGB(175, 223, 255))
-				elseif v.Name == "LeverForGate" then
-					highlightModel(v, Color3.fromRGB(252, 108, 42))
-				end
-			end
+		local doorModel = Room:WaitForChild("Door")
+		local highlight = highlightModel(doorModel:WaitForChild("Door"), Color3.fromRGB(255,255,255), nil, false)
+		doorModel:GetAttributeChangedSignal("Opened"):Connect(function()
+			highlight:StopHighlight()
 		end)
+		
+		if Room.Name == "50" then
+			task.wait(2)
+		end
+		
+		for i, v:Model in pairs(Room:GetDescendants()) do
+			if v.Name == "KeyObtain" then
+				highlightModel(v, Color3.fromRGB(1,55,255))
+			elseif v.Name == "LiveHintBook" then
+				highlightModel(v, Color3.fromRGB(175, 223, 255))
+			elseif v.Name == "LeverForGate" then
+				highlightModel(v, Color3.fromRGB(252, 108, 42))
+			end
+		end
 	end)
 	
 	for i, Room:Model in pairs(CurrentRooms:GetChildren()) do
-		CurrentRooms.ChildAdded:Connect(function()
-			local doorModel = Room:WaitForChild("Door")
-			local highlight = highlightModel(doorModel:WaitForChild("Door"), Color3.fromRGB(255,255,255), nil, false)
-			doorModel:GetAttributeChangedSignal("Opened"):Connect(function()
-				highlight:StopHighlight()
-			end)
-	
-			if Room.Name == "50" then
-				task.wait(2)
-			end
-	
-			for i, v:Model in pairs(Room:GetDescendants()) do
-				if v.Name == "KeyObtain" then
-					highlightModel(v, Color3.fromRGB(1,55,255))
-				elseif v.Name == "LiveHintBook" then
-					highlightModel(v, Color3.fromRGB(175, 223, 255))
-				elseif v.Name == "LeverForGate" then
-					highlightModel(v, Color3.fromRGB(252, 108, 42))
-				end
-			end
+		local doorModel = Room:WaitForChild("Door")
+		local highlight = highlightModel(doorModel:WaitForChild("Door"), Color3.fromRGB(255,255,255), nil, false)
+		doorModel:GetAttributeChangedSignal("Opened"):Connect(function()
+			highlight:StopHighlight()
 		end)
+	
+		if Room.Name == "50" then
+			task.wait(2)
+		end
+	
+		for i, v:Model in pairs(Room:GetDescendants()) do
+			if v.Name == "KeyObtain" then
+				highlightModel(v, Color3.fromRGB(1,55,255))
+			elseif v.Name == "LiveHintBook" then
+				highlightModel(v, Color3.fromRGB(175, 223, 255))
+			elseif v.Name == "LeverForGate" then
+				highlightModel(v, Color3.fromRGB(252, 108, 42))
+			end
+		end
 	end
 	
 	
