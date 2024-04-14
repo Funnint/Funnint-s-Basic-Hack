@@ -85,6 +85,7 @@ local script = G2L["2"];
 				else
 					connection:Disconnect()
 					newlinepart:Destroy()
+					highlight:Destroy()
 				end
 	
 			end)
