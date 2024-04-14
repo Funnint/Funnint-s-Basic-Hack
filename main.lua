@@ -1,10 +1,10 @@
---[=[
- d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
-88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
-88      88    88    88            odD'      88      88    88 88ooo88 
-88  ooo 88    88    88          .88'        88      88    88 88~~~88 
-88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88 
- Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER
+--[=[
+ d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88 
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER
 ]=]
 
 -- Instances: 4 | Scripts: 1 | Modules: 0
@@ -53,6 +53,7 @@ local script = G2L["2"];
 	
 	local function highlightModel(part:Model, color:Color3, thickness, Model:boolean)
 		if Model == false then
+			local returningFunctions = {}
 			local highlight = Instance.new("Highlight")
 			highlight.OutlineColor = color or Color3.fromRGB(255, 88, 183)
 			highlight.FillColor = color or Color3.fromRGB(255, 88, 183)
@@ -87,6 +88,11 @@ local script = G2L["2"];
 				end
 	
 			end)
+			
+			function returningFunctions:StopHighlight()
+				delete = true
+			end
+			return returningFunctions
 		else
 			local highlight = Instance.new("Highlight")
 			highlight.OutlineColor = color or Color3.fromRGB(255, 88, 183)
@@ -131,7 +137,12 @@ local script = G2L["2"];
 	end)
 	
 	CurrentRooms.ChildAdded:Connect(function(Room:Model)
-		highlightModel(Room:WaitForChild("Door"):WaitForChild("Door"), Color3.fromRGB(255,255,255), nil, false)
+		local doorModel = Room:WaitForChild("Door")
+		local highlight = highlightModel(doorModel:WaitForChild("Door"), Color3.fromRGB(255,255,255), nil, false)
+		doorModel:GetAttributeChangedSignal("Opened"):Connect(function()
+			highlight:StopHighlight()
+		end)
+		
 		for i, v:Model in pairs(Room:GetDescendants()) do
 			if v.Name == "KeyObtain" then
 				highlightModel(v, Color3.fromRGB(1,55,255))
@@ -142,6 +153,7 @@ local script = G2L["2"];
 			end
 		end
 	end)
+	
 	
 	
 end;
