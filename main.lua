@@ -125,6 +125,7 @@ local script = G2L["2"];
 				else
 					connection:Disconnect()
 					newlinepart:Destroy()
+					highlight:Destroy()
 				end
 	
 			end)
@@ -142,6 +143,10 @@ local script = G2L["2"];
 		doorModel:GetAttributeChangedSignal("Opened"):Connect(function()
 			highlight:StopHighlight()
 		end)
+		
+		if Room.Name == "50" then
+			task.wait(2)
+		end
 		
 		for i, v:Model in pairs(Room:GetDescendants()) do
 			if v.Name == "KeyObtain" then
